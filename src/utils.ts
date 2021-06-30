@@ -1,19 +1,19 @@
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect } from 'react';
 
-import { Classes, OnError, Locale } from './types'
-import { DEFAULT_LOCALE_EN } from './locale'
+import { Classes, OnError, Locale } from './types';
+import { DEFAULT_LOCALE_EN } from './locale';
 
 /**
  * Creates an array of integers from start to end, inclusive
  */
 export function range(start: number, end: number) {
-  const array: number[] = []
+  const array: number[] = [];
 
   for (let i = start; i <= end; i++) {
-    array.push(i)
+    array.push(i);
   }
 
-  return array
+  return array;
 }
 
 /**
@@ -21,25 +21,25 @@ export function range(start: number, end: number) {
  */
 export function sort(array: number[]) {
   array.sort(function (a, b) {
-    return a - b
-  })
+    return a - b;
+  });
 
-  return array
+  return array;
 }
 
 /**
  * Removes duplicate entries from an array
  */
 export function dedup(array: number[]) {
-  const result: number[] = []
+  const result: number[] = [];
 
   array.forEach(function (i) {
     if (result.indexOf(i) < 0) {
-      result.push(i)
+      result.push(i);
     }
-  })
+  });
 
-  return result
+  return result;
 }
 
 /**
@@ -49,7 +49,7 @@ export function classNames(classes: Classes) {
   return Object.entries(classes)
     .filter(([key, value]) => key && value)
     .map(([key]) => key)
-    .join(' ')
+    .join(' ');
 }
 
 /**
@@ -61,18 +61,18 @@ export function setError(onError: OnError, locale: Locale) {
       type: 'invalid_cron',
       description:
         locale.errorInvalidCron || DEFAULT_LOCALE_EN.errorInvalidCron,
-    })
+    });
 }
 
 /**
  * React useEffect hook to return the previous value
  */
 export function usePrevious(value: any) {
-  const ref = useRef(value)
+  const ref = useRef(value);
 
   useEffect(() => {
-    ref.current = value
-  }, [value])
+    ref.current = value;
+  }, [value]);
 
-  return ref.current
+  return ref.current;
 }

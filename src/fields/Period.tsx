@@ -1,9 +1,9 @@
-import React, { useCallback, useMemo } from 'react'
-import { Select } from 'antd'
+import React, { useCallback, useMemo } from 'react';
+import { Select } from 'antd';
 
-import { PeriodProps } from '../types'
-import { DEFAULT_LOCALE_EN } from '../locale'
-import { classNames } from '../utils'
+import { PeriodProps } from '../types';
+import { DEFAULT_LOCALE_EN } from '../locale';
+import { classNames } from '../utils';
 
 export default function Period(props: PeriodProps) {
   const {
@@ -14,7 +14,7 @@ export default function Period(props: PeriodProps) {
     disabled,
     readOnly,
     shortcuts,
-  } = props
+  } = props;
   let options = [
     {
       value: 'year',
@@ -40,7 +40,7 @@ export default function Period(props: PeriodProps) {
       value: 'minute',
       label: locale.minuteOption || DEFAULT_LOCALE_EN.minuteOption,
     },
-  ]
+  ];
 
   if (shortcuts && (shortcuts === true || shortcuts.includes('@reboot'))) {
     options = [
@@ -49,17 +49,17 @@ export default function Period(props: PeriodProps) {
         value: 'reboot',
         label: locale.rebootOption || DEFAULT_LOCALE_EN.rebootOption,
       },
-    ]
+    ];
   }
 
   const handleChange = useCallback(
     (newValue) => {
       if (!readOnly) {
-        setValue(newValue)
+        setValue(newValue);
       }
     },
     [setValue, readOnly]
-  )
+  );
 
   const internalClassName = useMemo(
     () =>
@@ -70,7 +70,7 @@ export default function Period(props: PeriodProps) {
         [`${className}-period`]: !!className,
       }),
     [className]
-  )
+  );
 
   const selectClassName = useMemo(
     () =>
@@ -80,7 +80,7 @@ export default function Period(props: PeriodProps) {
         [`${className}-select`]: !!className,
       }),
     [className, locale.prefixPeriod]
-  )
+  );
 
   const dropdownClassName = useMemo(
     () =>
@@ -91,7 +91,7 @@ export default function Period(props: PeriodProps) {
         [`${className}-select-dropdown-period`]: !!className,
       }),
     [className]
-  )
+  );
 
   return (
     <div className={internalClassName}>
@@ -112,5 +112,5 @@ export default function Period(props: PeriodProps) {
         open={readOnly ? false : undefined}
       />
     </div>
-  )
+  );
 }

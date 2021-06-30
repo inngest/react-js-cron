@@ -1,10 +1,10 @@
-import React, { useMemo } from 'react'
+import React, { useMemo } from 'react';
 
-import { MonthsProps } from '../types'
-import CustomSelect from '../components/CustomSelect'
-import { DEFAULT_LOCALE_EN } from '../locale'
-import { classNames } from '../utils'
-import { UNITS } from '../constants'
+import { MonthsProps } from '../types';
+import CustomSelect from '../components/CustomSelect';
+import { DEFAULT_LOCALE_EN } from '../locale';
+import { classNames } from '../utils';
+import { UNITS } from '../constants';
 
 export default function Months(props: MonthsProps) {
   const {
@@ -16,8 +16,8 @@ export default function Months(props: MonthsProps) {
     disabled,
     readOnly,
     period,
-  } = props
-  const optionsList = locale.months || DEFAULT_LOCALE_EN.months
+  } = props;
+  const optionsList = locale.months || DEFAULT_LOCALE_EN.months;
 
   const internalClassName = useMemo(
     () =>
@@ -28,7 +28,7 @@ export default function Months(props: MonthsProps) {
         [`${className}-months`]: !!className,
       }),
     [className]
-  )
+  );
 
   return (
     <div className={internalClassName}>
@@ -56,5 +56,5 @@ export default function Months(props: MonthsProps) {
         period={period}
       />
     </div>
-  )
+  );
 }

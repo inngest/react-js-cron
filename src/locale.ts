@@ -1,4 +1,4 @@
-import { DefaultLocale } from './types'
+import { DefaultLocale } from './types';
 
 export const DEFAULT_LOCALE_EN: DefaultLocale = {
   everyText: 'every',
@@ -78,4 +78,4 @@ export const DEFAULT_LOCALE_EN: DefaultLocale = {
     'NOV',
     'DEC',
   ],
-}
+};

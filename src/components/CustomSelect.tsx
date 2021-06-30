@@ -1,10 +1,11 @@
-import React, { useMemo, useCallback, useRef } from 'react'
-import Select from 'antd/lib/select'
+import React, { useMemo, useCallback, useRef } from 'react';
+// import Select from 'antd/lib/select'
+import Select from 'rc-select';
 
-import { CustomSelectProps, Clicks } from '../types'
-import { DEFAULT_LOCALE_EN } from '../locale'
-import { classNames, sort } from '../utils'
-import { parsePartArray, partToString, formatValue } from '../converter'
+import { CustomSelectProps, Clicks } from '../types';
+import { DEFAULT_LOCALE_EN } from '../locale';
+import { classNames, sort } from '../utils';
+import { parsePartArray, partToString, formatValue } from '../converter';
 
 export default function CustomSelect(props: CustomSelectProps) {
   const {
@@ -22,29 +23,29 @@ export default function CustomSelect(props: CustomSelectProps) {
     period,
     unit,
     ...otherProps
-  } = props
+  } = props;
 
   const stringValue = useMemo(() => {
     if (value && Array.isArray(value)) {
-      return value.map((value: number) => value.toString())
+      return value.map((value: number) => value.toString());
     }
-  }, [value])
+  }, [value]);
 
   const options = useMemo(
     () => {
       if (optionsList) {
         return optionsList.map((option, index) => {
-          const number = unit.min === 0 ? index : index + 1
+          const number = unit.min === 0 ? index : index + 1;
 
           return {
             value: number.toString(),
             label: option,
-          }
-        })
+          };
+        });
       }
 
       return [...Array(unit.total)].map((e, index) => {
-        const number = unit.min === 0 ? index : index + 1
+        const number = unit.min === 0 ? index : index + 1;
 
         return {
           value: number.toString(),
@@ -55,30 +56,30 @@ export default function CustomSelect(props: CustomSelectProps) {
             leadingZero,
             clockFormat
           ),
-        }
-      })
+        };
+      });
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [optionsList, leadingZero, humanizeLabels, clockFormat]
-  )
-  const localeJSON = JSON.stringify(locale)
+  );
+  const localeJSON = JSON.stringify(locale);
   const renderTag = useCallback(
     (props) => {
-      const { value: itemValue } = props
+      const { value: itemValue } = props;
 
       if (!value || value[0] !== Number(itemValue)) {
-        return <></>
+        return <></>;
       }
 
-      const parsedArray = parsePartArray(value, unit)
+      const parsedArray = parsePartArray(value, unit);
       const cronValue = partToString(
         parsedArray,
         unit,
         humanizeLabels,
         leadingZero,
         clockFormat
-      )
-      const testEveryValue = cronValue.match(/^\*\/([0-9]+),?/) || []
+      );
+      const testEveryValue = cronValue.match(/^\*\/([0-9]+),?/) || [];
 
       return (
         <div>
@@ -88,87 +89,87 @@ export default function CustomSelect(props: CustomSelectProps) {
               }`
             : cronValue}
         </div>
-      )
+      );
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [value, localeJSON, humanizeLabels, leadingZero, clockFormat]
-  )
+  );
 
   const simpleClick = useCallback(
     (newValueOption: number | number[]) => {
       const newValueOptions = Array.isArray(newValueOption)
         ? sort(newValueOption)
-        : [newValueOption]
-      let newValue: number[] = newValueOptions
+        : [newValueOption];
+      let newValue: number[] = newValueOptions;
 
       if (value) {
-        newValue = [...value]
+        newValue = [...value];
 
         newValueOptions.forEach((o) => {
-          const newValueOptionNumber = Number(o)
+          const newValueOptionNumber = Number(o);
 
           if (value.some((v) => v === newValueOptionNumber)) {
-            newValue = newValue.filter((v) => v !== newValueOptionNumber)
+            newValue = newValue.filter((v) => v !== newValueOptionNumber);
           } else {
-            newValue = sort([...newValue, newValueOptionNumber])
+            newValue = sort([...newValue, newValueOptionNumber]);
           }
-        })
+        });
       }
 
       if (newValue.length === unit.total) {
-        setValue([])
+        setValue([]);
       } else {
-        setValue(newValue)
+        setValue(newValue);
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [setValue, value]
-  )
+  );
 
   const doubleClick = useCallback(
     (newValueOption: number) => {
       if (newValueOption !== 0 && newValueOption !== 1) {
-        const limit = unit.total + unit.min
-        const newValue: number[] = []
+        const limit = unit.total + unit.min;
+        const newValue: number[] = [];
 
         for (let i = unit.min; i < limit; i++) {
           if (i % newValueOption === 0) {
-            newValue.push(i)
+            newValue.push(i);
           }
         }
         const oldValueEqualNewValue =
           value &&
           newValue &&
           value.length === newValue.length &&
-          value.every((v: number, i: number) => v === newValue[i])
-        const allValuesSelected = newValue.length === options.length
+          value.every((v: number, i: number) => v === newValue[i]);
+        const allValuesSelected = newValue.length === options.length;
 
         if (allValuesSelected) {
-          setValue([])
+          setValue([]);
         } else if (oldValueEqualNewValue) {
-          setValue([])
+          setValue([]);
         } else {
-          setValue(newValue)
+          setValue(newValue);
         }
       } else {
-        setValue([])
+        setValue([]);
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [value, options, setValue]
-  )
+  );
 
-  const clicksRef = useRef<Clicks[]>([])
+  const clicksRef = useRef<Clicks[]>([]);
   const onOptionClick = useCallback(
     (newValueOption: string) => {
       if (!readOnly) {
-        const doubleClickTimeout = 300
-        const clicks = clicksRef.current
+        const doubleClickTimeout = 300;
+        const clicks = clicksRef.current;
 
         clicks.push({
           time: new Date().getTime(),
           value: Number(newValueOption),
-        })
+        });
 
         const id = window.setTimeout(() => {
           if (
@@ -180,39 +181,39 @@ export default function CustomSelect(props: CustomSelectProps) {
               clicks[clicks.length - 1].value ===
               clicks[clicks.length - 2].value
             ) {
-              doubleClick(Number(newValueOption))
+              doubleClick(Number(newValueOption));
             } else {
               simpleClick([
                 clicks[clicks.length - 2].value,
                 clicks[clicks.length - 1].value,
-              ])
+              ]);
             }
           } else {
-            simpleClick(Number(newValueOption))
+            simpleClick(Number(newValueOption));
           }
 
-          clicksRef.current = []
-        }, doubleClickTimeout)
+          clicksRef.current = [];
+        }, doubleClickTimeout);
 
         return () => {
-          window.clearTimeout(id)
-        }
+          window.clearTimeout(id);
+        };
       }
     },
     [clicksRef, simpleClick, doubleClick, readOnly]
-  )
+  );
 
   // Used by the select clear icon
   const onChange = useCallback(
     (newValue: any) => {
       if (!readOnly) {
         if (newValue && newValue.length === 0) {
-          setValue([])
+          setValue([]);
         }
       }
     },
     [setValue, readOnly]
-  )
+  );
 
   const internalClassName = useMemo(
     () =>
@@ -222,7 +223,7 @@ export default function CustomSelect(props: CustomSelectProps) {
         [`${className}-select`]: !!className,
       }),
     [className]
-  )
+  );
 
   const dropdownClassNames = useMemo(
     () =>
@@ -243,7 +244,7 @@ export default function CustomSelect(props: CustomSelectProps) {
       }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [className, grid, clockFormat, period]
-  )
+  );
 
   return (
     <Select
@@ -279,5 +280,5 @@ export default function CustomSelect(props: CustomSelectProps) {
       }
       {...otherProps}
     />
-  )
+  );
 }

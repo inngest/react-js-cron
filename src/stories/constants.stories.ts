@@ -70,7 +70,7 @@ export const FRENCH_LOCALE = {
   // cf: http://bdl.oqlf.gouv.qc.ca/bdl/gabarit_bdl.asp?id=3617
   // Order is important, the index will be used as value
   altWeekDays: ['DIM', 'LUN', 'MAR', 'MER', 'JEU', 'VEN', 'SAM'],
-}
+};
 export const ENGLISH_VARIANT_LOCALE = {
   everyText: 'all',
   emptyHours: 'all hours',
@@ -87,7 +87,7 @@ export const ENGLISH_VARIANT_LOCALE = {
   minuteOption: 'minutes',
   rebootOption: 'reboots',
   prefixPeriod: 'All',
-}
+};
 export const NO_PREFIX_SUFFIX_LOCALE = {
   prefixPeriod: '',
   prefixMonths: '',
@@ -98,4 +98,4 @@ export const NO_PREFIX_SUFFIX_LOCALE = {
   prefixMinutes: '',
   prefixMinutesForHourPeriod: '',
   suffixMinutesForHourPeriod: '',
-}
+};

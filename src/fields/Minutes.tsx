@@ -1,10 +1,10 @@
-import React, { useMemo } from 'react'
+import React, { useMemo } from 'react';
 
-import CustomSelect from '../components/CustomSelect'
-import { MinutesProps } from '../types'
-import { DEFAULT_LOCALE_EN } from '../locale'
-import { classNames } from '../utils'
-import { UNITS } from '../constants'
+import CustomSelect from '../components/CustomSelect';
+import { MinutesProps } from '../types';
+import { DEFAULT_LOCALE_EN } from '../locale';
+import { classNames } from '../utils';
+import { UNITS } from '../constants';
 
 export default function Minutes(props: MinutesProps) {
   const {
@@ -17,7 +17,7 @@ export default function Minutes(props: MinutesProps) {
     leadingZero,
     clockFormat,
     period,
-  } = props
+  } = props;
   const internalClassName = useMemo(
     () =>
       classNames({
@@ -27,7 +27,7 @@ export default function Minutes(props: MinutesProps) {
         [`${className}-minutes`]: !!className,
       }),
     [className]
-  )
+  );
 
   return (
     <div className={internalClassName}>
@@ -70,5 +70,5 @@ export default function Minutes(props: MinutesProps) {
         </span>
       )}
     </div>
-  )
+  );
 }

@@ -1,4 +1,10 @@
-import React, { useState, useCallback, useEffect, useRef, useMemo } from 'react'
+import React, {
+  useState,
+  useCallback,
+  useEffect,
+  useRef,
+  useMemo,
+} from 'react';
 import {
   Input as AntdInput,
   Divider,
@@ -7,46 +13,46 @@ import {
   Radio,
   Switch,
   Button,
-} from 'antd'
-import { InfoCircleOutlined } from '@ant-design/icons'
+} from 'antd';
+import { InfoCircleOutlined } from '@ant-design/icons';
 
-import Cron, { CronError, AllowEmpty, ClockFormat, PeriodType } from '../index'
+import Cron, { CronError, AllowEmpty, ClockFormat, PeriodType } from '../index';
 import {
   FRENCH_LOCALE,
   ENGLISH_VARIANT_LOCALE,
   NO_PREFIX_SUFFIX_LOCALE,
-} from './constants.stories'
-import { ClearButtonAction } from '../types'
+} from './constants.stories';
+import { ClearButtonAction } from '../types';
 
-import './styles.stories.css'
+import './styles.stories.css';
 
 export default {
   title: 'ReactJS Cron',
   component: Demo,
-}
+};
 
 export function Demo() {
-  const inputRef = useRef<AntdInput>(null)
-  const defaultValue = '30 5 * * 1,6'
-  const [value, setValue] = useState(defaultValue)
+  const inputRef = useRef<AntdInput>(null);
+  const defaultValue = '30 5 * * 1,6';
+  const [value, setValue] = useState(defaultValue);
   const customSetValue = useCallback(
     (newValue: string) => {
-      setValue(newValue)
-      inputRef.current?.setValue(newValue)
+      setValue(newValue);
+      inputRef.current?.setValue(newValue);
     },
     [inputRef]
-  )
-  const [error, onError] = useState<CronError>()
+  );
+  const [error, onError] = useState<CronError>();
 
   return (
     <div>
       <AntdInput
         ref={inputRef}
         onBlur={(event) => {
-          setValue(event.target.value)
+          setValue(event.target.value);
         }}
         onPressEnter={() => {
-          setValue(inputRef.current?.input.value || '')
+          setValue(inputRef.current?.input.value || '');
         }}
       />
 
@@ -66,82 +72,82 @@ export function Demo() {
         Error: {error ? error.description : 'undefined'}
       </p>
     </div>
-  )
+  );
 }
 
 export function DynamicSettings() {
-  const [displayInput, setDisplayInput] = useState<boolean>(true)
-  const [changeValueOnBlur, setChangeValueOnBlur] = useState<boolean>(true)
-  const [changeValueOnEnter, setChangeValueOnEnter] = useState<boolean>(true)
-  const [readOnlyInput, setReadOnlyInput] = useState<boolean>(false)
-  const [disabled, setDisabled] = useState<boolean>(false)
-  const [readOnly, setReadOnly] = useState<boolean>(false)
-  const [humanizeLabels, setHumanizeLabels] = useState<boolean>(true)
-  const [humanizeValue, setHumanizeValue] = useState<boolean>(false)
-  const [displayErrorText, setDisplayErrorText] = useState<boolean>(true)
-  const [displayErrorStyle, setDisplayErrorStyle] = useState<boolean>(true)
-  const [displayClearButton, setDisplayClearButton] = useState<boolean>(true)
-  const [supportShortcuts, setSupportShortcuts] = useState<boolean>(true)
-  const [removePrefixSuffix, setRemovePrefixSuffix] = useState<boolean>(false)
-  const [customStyle, setCustomStyle] = useState<boolean>(false)
-  const [allowEmpty, setAllowEmpty] = useState<AllowEmpty>('for-default-value')
-  const [clockFormat, setClockFormat] = useState<ClockFormat | ''>('')
+  const [displayInput, setDisplayInput] = useState<boolean>(true);
+  const [changeValueOnBlur, setChangeValueOnBlur] = useState<boolean>(true);
+  const [changeValueOnEnter, setChangeValueOnEnter] = useState<boolean>(true);
+  const [readOnlyInput, setReadOnlyInput] = useState<boolean>(false);
+  const [disabled, setDisabled] = useState<boolean>(false);
+  const [readOnly, setReadOnly] = useState<boolean>(false);
+  const [humanizeLabels, setHumanizeLabels] = useState<boolean>(true);
+  const [humanizeValue, setHumanizeValue] = useState<boolean>(false);
+  const [displayErrorText, setDisplayErrorText] = useState<boolean>(true);
+  const [displayErrorStyle, setDisplayErrorStyle] = useState<boolean>(true);
+  const [displayClearButton, setDisplayClearButton] = useState<boolean>(true);
+  const [supportShortcuts, setSupportShortcuts] = useState<boolean>(true);
+  const [removePrefixSuffix, setRemovePrefixSuffix] = useState<boolean>(false);
+  const [customStyle, setCustomStyle] = useState<boolean>(false);
+  const [allowEmpty, setAllowEmpty] = useState<AllowEmpty>('for-default-value');
+  const [clockFormat, setClockFormat] = useState<ClockFormat | ''>('');
   const [locale, setLocale] = useState<
     'english' | 'french' | 'english-variant'
-  >('english')
-  const [defaultPeriod, setDefaultPeriod] = useState<PeriodType>('day')
-  const [defaultValue, setDefaultValue] = useState('@daily')
-  const [leadingZero, setLeadingZero] = useState<boolean>(false)
-  const [key, setKey] = useState('render')
-  const inputRef = useRef<AntdInput>(null)
-  const [value, setValue] = useState(defaultValue)
+  >('english');
+  const [defaultPeriod, setDefaultPeriod] = useState<PeriodType>('day');
+  const [defaultValue, setDefaultValue] = useState('@daily');
+  const [leadingZero, setLeadingZero] = useState<boolean>(false);
+  const [key, setKey] = useState('render');
+  const inputRef = useRef<AntdInput>(null);
+  const [value, setValue] = useState(defaultValue);
   const customSetValue = useCallback(
     (newValue: string) => {
-      setValue(newValue)
-      inputRef.current?.setValue(newValue)
+      setValue(newValue);
+      inputRef.current?.setValue(newValue);
     },
     [inputRef]
-  )
-  const [error, onError] = useState<CronError>()
+  );
+  const [error, onError] = useState<CronError>();
   const [clearButtonAction, setClearButtonAction] = useState<ClearButtonAction>(
     'fill-with-every'
-  )
+  );
 
   const transformedLocale = useMemo(() => {
-    let newLocale
+    let newLocale;
 
     switch (locale) {
       case 'french':
-        newLocale = FRENCH_LOCALE
-        break
+        newLocale = FRENCH_LOCALE;
+        break;
       case 'english-variant':
-        newLocale = ENGLISH_VARIANT_LOCALE
-        break
+        newLocale = ENGLISH_VARIANT_LOCALE;
+        break;
 
       default:
-        newLocale = {}
-        break
+        newLocale = {};
+        break;
     }
 
     if (removePrefixSuffix) {
       newLocale = {
         ...newLocale,
         ...NO_PREFIX_SUFFIX_LOCALE,
-      }
+      };
     }
 
-    return newLocale
-  }, [locale, removePrefixSuffix])
+    return newLocale;
+  }, [locale, removePrefixSuffix]);
 
   useEffect(
     () => {
       if (displayInput) {
-        inputRef.current?.setValue(value)
+        inputRef.current?.setValue(value);
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [displayInput]
-  )
+  );
 
   return (
     <div>
@@ -310,8 +316,8 @@ export function DynamicSettings() {
         <Button
           type='primary'
           onClick={() => {
-            customSetValue(defaultValue)
-            setKey(Math.random().toString(36).substring(7))
+            customSetValue(defaultValue);
+            setKey(Math.random().toString(36).substring(7));
           }}
         >
           Reset cron component
@@ -324,11 +330,11 @@ export function DynamicSettings() {
             ref={inputRef}
             readOnly={readOnlyInput}
             onBlur={(event) => {
-              changeValueOnBlur && setValue(event.target.value)
+              changeValueOnBlur && setValue(event.target.value);
             }}
             onPressEnter={() => {
               changeValueOnEnter &&
-                setValue(inputRef.current?.input.value || '')
+                setValue(inputRef.current?.input.value || '');
             }}
           />
 
@@ -370,27 +376,27 @@ export function DynamicSettings() {
         </p>
       )}
     </div>
-  )
+  );
 }
 
 export function Input() {
-  const inputRef = useRef<AntdInput>(null)
-  const defaultValue = ''
-  const [value, setValue] = useState(defaultValue)
+  const inputRef = useRef<AntdInput>(null);
+  const defaultValue = '';
+  const [value, setValue] = useState(defaultValue);
   const customSetValue = useCallback(
     (newValue: string) => {
-      setValue(newValue)
-      inputRef.current?.setValue(newValue)
+      setValue(newValue);
+      inputRef.current?.setValue(newValue);
     },
     [inputRef]
-  )
+  );
 
   return (
     <div>
       <AntdInput
         ref={inputRef}
         onBlur={(event) => {
-          setValue(event.target.value)
+          setValue(event.target.value);
         }}
       />
 
@@ -413,30 +419,30 @@ export function Input() {
 
       <Cron value={value} setValue={customSetValue} />
     </div>
-  )
+  );
 }
 
 export function InputWithOnEnter() {
-  const inputRef = useRef<AntdInput>(null)
-  const defaultValue = '0 10 * * 1,3,5'
-  const [value, setValue] = useState(defaultValue)
+  const inputRef = useRef<AntdInput>(null);
+  const defaultValue = '0 10 * * 1,3,5';
+  const [value, setValue] = useState(defaultValue);
   const customSetValue = useCallback(
     (newValue: string) => {
-      setValue(newValue)
-      inputRef.current?.setValue(newValue)
+      setValue(newValue);
+      inputRef.current?.setValue(newValue);
     },
     [inputRef]
-  )
+  );
 
   return (
     <div>
       <AntdInput
         ref={inputRef}
         onBlur={(event) => {
-          setValue(event.target.value)
+          setValue(event.target.value);
         }}
         onPressEnter={() => {
-          setValue(inputRef.current?.input.value || '')
+          setValue(inputRef.current?.input.value || '');
         }}
       />
 
@@ -451,12 +457,12 @@ export function InputWithOnEnter() {
 
       <Cron value={value} setValue={customSetValue} />
     </div>
-  )
+  );
 }
 
 export function ReadOnlyInput() {
-  const defaultValue = '0 10 * * 1,3,5'
-  const [value, setValue] = useState(defaultValue)
+  const defaultValue = '0 10 * * 1,3,5';
+  const [value, setValue] = useState(defaultValue);
 
   return (
     <div>
@@ -466,12 +472,12 @@ export function ReadOnlyInput() {
 
       <Cron value={value} setValue={setValue} />
     </div>
-  )
+  );
 }
 
 export function DefaultValue() {
-  const defaultValue = '*/7 */2 */3 * *'
-  const [value, setValue] = useState(defaultValue)
+  const defaultValue = '*/7 */2 */3 * *';
+  const [value, setValue] = useState(defaultValue);
 
   return (
     <div>
@@ -487,13 +493,13 @@ export function DefaultValue() {
         </span>
       </div>
     </div>
-  )
+  );
 }
 
 export function DefaultPeriod() {
-  const defaultValue = ''
-  const defaultPeriod = 'year'
-  const [value, setValue] = useState(defaultValue)
+  const defaultValue = '';
+  const defaultPeriod = 'year';
+  const [value, setValue] = useState(defaultValue);
 
   return (
     <div>
@@ -516,12 +522,12 @@ export function DefaultPeriod() {
         </span>
       </div>
     </div>
-  )
+  );
 }
 
 export function Disabled() {
-  const defaultValue = '30 5 * * 1,6'
-  const [value, setValue] = useState(defaultValue)
+  const defaultValue = '30 5 * * 1,6';
+  const [value, setValue] = useState(defaultValue);
 
   return (
     <div>
@@ -538,12 +544,12 @@ export function Disabled() {
         </span>
       </div>
     </div>
-  )
+  );
 }
 
 export function ReadOnly() {
-  const defaultValue = '30 5 * * 1,6'
-  const [value, setValue] = useState(defaultValue)
+  const defaultValue = '30 5 * * 1,6';
+  const [value, setValue] = useState(defaultValue);
 
   return (
     <div>
@@ -560,21 +566,21 @@ export function ReadOnly() {
         </span>
       </div>
     </div>
-  )
+  );
 }
 
 export function HumanizeLabels() {
-  const inputRef = useRef<AntdInput>(null)
-  const defaultValue = '* * * * MON-WED,sat'
-  const [value, setValue] = useState(defaultValue)
-  const [error, onError] = useState<CronError>()
+  const inputRef = useRef<AntdInput>(null);
+  const defaultValue = '* * * * MON-WED,sat';
+  const [value, setValue] = useState(defaultValue);
+  const [error, onError] = useState<CronError>();
   const customSetValue = useCallback(
     (newValue: string) => {
-      setValue(newValue)
-      inputRef.current?.setValue(newValue)
+      setValue(newValue);
+      inputRef.current?.setValue(newValue);
     },
     [inputRef]
-  )
+  );
 
   return (
     <div>
@@ -586,7 +592,7 @@ export function HumanizeLabels() {
       <AntdInput
         ref={inputRef}
         onBlur={(event) => {
-          setValue(event.target.value)
+          setValue(event.target.value);
         }}
       />
 
@@ -621,21 +627,21 @@ export function HumanizeLabels() {
         </span>
       </div>
     </div>
-  )
+  );
 }
 
 export function HumanizeValue() {
-  const inputRef = useRef<AntdInput>(null)
-  const defaultValue = '* * * * MON-WED,sat'
-  const [value, setValue] = useState(defaultValue)
-  const [error, onError] = useState<CronError>()
+  const inputRef = useRef<AntdInput>(null);
+  const defaultValue = '* * * * MON-WED,sat';
+  const [value, setValue] = useState(defaultValue);
+  const [error, onError] = useState<CronError>();
   const customSetValue = useCallback(
     (newValue: string) => {
-      setValue(newValue)
-      inputRef.current?.setValue(newValue)
+      setValue(newValue);
+      inputRef.current?.setValue(newValue);
     },
     [inputRef]
-  )
+  );
 
   return (
     <div>
@@ -648,7 +654,7 @@ export function HumanizeValue() {
       <AntdInput
         ref={inputRef}
         onBlur={(event) => {
-          setValue(event.target.value)
+          setValue(event.target.value);
         }}
       />
 
@@ -702,21 +708,21 @@ export function HumanizeValue() {
         </span>
       </div>
     </div>
-  )
+  );
 }
 
 export function HumanizeLabelsAndValue() {
-  const inputRef = useRef<AntdInput>(null)
-  const defaultValue = '* * * * MON-WED,sat'
-  const [value, setValue] = useState(defaultValue)
-  const [error, onError] = useState<CronError>()
+  const inputRef = useRef<AntdInput>(null);
+  const defaultValue = '* * * * MON-WED,sat';
+  const [value, setValue] = useState(defaultValue);
+  const [error, onError] = useState<CronError>();
   const customSetValue = useCallback(
     (newValue: string) => {
-      setValue(newValue)
-      inputRef.current?.setValue(newValue)
+      setValue(newValue);
+      inputRef.current?.setValue(newValue);
     },
     [inputRef]
-  )
+  );
 
   return (
     <div>
@@ -729,7 +735,7 @@ export function HumanizeLabelsAndValue() {
       <AntdInput
         ref={inputRef}
         onBlur={(event) => {
-          setValue(event.target.value)
+          setValue(event.target.value);
         }}
       />
 
@@ -755,20 +761,20 @@ export function HumanizeLabelsAndValue() {
         </span>
       </div>
     </div>
-  )
+  );
 }
 
 export function LeadingZero() {
-  const inputRef = useRef<AntdInput>(null)
-  const defaultValue = '5 3 2-3,8 * *'
-  const [value, setValue] = useState(defaultValue)
+  const inputRef = useRef<AntdInput>(null);
+  const defaultValue = '5 3 2-3,8 * *';
+  const [value, setValue] = useState(defaultValue);
   const customSetValue = useCallback(
     (newValue: string) => {
-      setValue(newValue)
-      inputRef.current?.setValue(newValue)
+      setValue(newValue);
+      inputRef.current?.setValue(newValue);
     },
     [inputRef]
-  )
+  );
 
   return (
     <div>
@@ -778,7 +784,7 @@ export function LeadingZero() {
       <AntdInput
         ref={inputRef}
         onBlur={(event) => {
-          setValue(event.target.value)
+          setValue(event.target.value);
         }}
       />
 
@@ -800,21 +806,21 @@ export function LeadingZero() {
         </span>
       </div>
     </div>
-  )
+  );
 }
 
 export function TrackError() {
-  const inputRef = useRef<AntdInput>(null)
-  const defaultValue = ''
-  const [value, setValue] = useState(defaultValue)
+  const inputRef = useRef<AntdInput>(null);
+  const defaultValue = '';
+  const [value, setValue] = useState(defaultValue);
   const customSetValue = useCallback(
     (newValue: string) => {
-      setValue(newValue)
-      inputRef.current?.setValue(newValue)
+      setValue(newValue);
+      inputRef.current?.setValue(newValue);
     },
     [inputRef]
-  )
-  const [error, onError] = useState<CronError>()
+  );
+  const [error, onError] = useState<CronError>();
 
   return (
     <div>
@@ -824,7 +830,7 @@ export function TrackError() {
       <AntdInput
         ref={inputRef}
         onBlur={(event) => {
-          setValue(event.target.value)
+          setValue(event.target.value);
         }}
       />
 
@@ -848,21 +854,21 @@ export function TrackError() {
         </span>
       </div>
     </div>
-  )
+  );
 }
 
 export function DisableErrorStyle() {
-  const inputRef = useRef<AntdInput>(null)
-  const defaultValue = ''
-  const [value, setValue] = useState(defaultValue)
+  const inputRef = useRef<AntdInput>(null);
+  const defaultValue = '';
+  const [value, setValue] = useState(defaultValue);
   const customSetValue = useCallback(
     (newValue: string) => {
-      setValue(newValue)
-      inputRef.current?.setValue(newValue)
+      setValue(newValue);
+      inputRef.current?.setValue(newValue);
     },
     [inputRef]
-  )
-  const [error, onError] = useState<CronError>()
+  );
+  const [error, onError] = useState<CronError>();
 
   return (
     <div>
@@ -872,7 +878,7 @@ export function DisableErrorStyle() {
       <AntdInput
         ref={inputRef}
         onBlur={(event) => {
-          setValue(event.target.value)
+          setValue(event.target.value);
         }}
       />
 
@@ -885,12 +891,12 @@ export function DisableErrorStyle() {
         displayError={false}
       />
     </div>
-  )
+  );
 }
 
 export function NoClearButton() {
-  const defaultValue = ''
-  const [value, setValue] = useState(defaultValue)
+  const defaultValue = '';
+  const [value, setValue] = useState(defaultValue);
 
   return (
     <div>
@@ -899,13 +905,13 @@ export function NoClearButton() {
 
       <Cron clearButton={false} value={value} setValue={setValue} />
     </div>
-  )
+  );
 }
 
 export function ClearButtonEmptyValue() {
-  const clearButtonAction = 'empty'
-  const defaultValue = '0 10 * * 1,3,5'
-  const [value, setValue] = useState(defaultValue)
+  const clearButtonAction = 'empty';
+  const defaultValue = '0 10 * * 1,3,5';
+  const [value, setValue] = useState(defaultValue);
 
   return (
     <div>
@@ -934,13 +940,13 @@ export function ClearButtonEmptyValue() {
         </span>
       </div>
     </div>
-  )
+  );
 }
 
 export function InvalidDefaultValue() {
-  const defaultValue = '*/2 */2 */2 1-6 */6 * *'
-  const [value, setValue] = useState(defaultValue)
-  const [error, onError] = useState<CronError>()
+  const defaultValue = '*/2 */2 */2 1-6 */6 * *';
+  const [value, setValue] = useState(defaultValue);
+  const [error, onError] = useState<CronError>();
 
   return (
     <div>
@@ -950,21 +956,21 @@ export function InvalidDefaultValue() {
 
       <Cron value={value} setValue={setValue} onError={onError} />
     </div>
-  )
+  );
 }
 
 export function EmptyNeverAllowed() {
-  const inputRef = useRef<AntdInput>(null)
-  const defaultValue = ''
-  const [value, setValue] = useState(defaultValue)
+  const inputRef = useRef<AntdInput>(null);
+  const defaultValue = '';
+  const [value, setValue] = useState(defaultValue);
   const customSetValue = useCallback(
     (newValue: string) => {
-      setValue(newValue)
-      inputRef.current?.setValue(newValue)
+      setValue(newValue);
+      inputRef.current?.setValue(newValue);
     },
     [inputRef]
-  )
-  const [error, onError] = useState<CronError>()
+  );
+  const [error, onError] = useState<CronError>();
 
   return (
     <div>
@@ -976,7 +982,7 @@ export function EmptyNeverAllowed() {
       <AntdInput
         ref={inputRef}
         onBlur={(event) => {
-          setValue(event.target.value)
+          setValue(event.target.value);
         }}
       />
 
@@ -997,21 +1003,21 @@ export function EmptyNeverAllowed() {
         </span>
       </div>
     </div>
-  )
+  );
 }
 
 export function EmptyAlwaysAllowed() {
-  const inputRef = useRef<AntdInput>(null)
-  const defaultValue = ''
-  const [value, setValue] = useState(defaultValue)
+  const inputRef = useRef<AntdInput>(null);
+  const defaultValue = '';
+  const [value, setValue] = useState(defaultValue);
   const customSetValue = useCallback(
     (newValue: string) => {
-      setValue(newValue)
-      inputRef.current?.setValue(newValue)
+      setValue(newValue);
+      inputRef.current?.setValue(newValue);
     },
     [inputRef]
-  )
-  const [error, onError] = useState<CronError>()
+  );
+  const [error, onError] = useState<CronError>();
 
   return (
     <div>
@@ -1023,7 +1029,7 @@ export function EmptyAlwaysAllowed() {
       <AntdInput
         ref={inputRef}
         onBlur={(event) => {
-          setValue(event.target.value)
+          setValue(event.target.value);
         }}
       />
 
@@ -1044,21 +1050,21 @@ export function EmptyAlwaysAllowed() {
         </span>
       </div>
     </div>
-  )
+  );
 }
 
 export function Shortcuts() {
-  const inputRef = useRef<AntdInput>(null)
-  const defaultValue = '@monthly'
-  const [value, setValue] = useState(defaultValue)
+  const inputRef = useRef<AntdInput>(null);
+  const defaultValue = '@monthly';
+  const [value, setValue] = useState(defaultValue);
   const customSetValue = useCallback(
     (newValue: string) => {
-      setValue(newValue)
-      inputRef.current?.setValue(newValue)
+      setValue(newValue);
+      inputRef.current?.setValue(newValue);
     },
     [inputRef]
-  )
-  const [error, onError] = useState<CronError>()
+  );
+  const [error, onError] = useState<CronError>();
 
   const columns = [
     {
@@ -1073,7 +1079,7 @@ export function Shortcuts() {
       dataIndex: 'value',
       key: 'value',
     },
-  ]
+  ];
 
   const data = [
     {
@@ -1112,7 +1118,7 @@ export function Shortcuts() {
       description: 'Run at startup',
       value: '@reboot',
     },
-  ]
+  ];
 
   return (
     <div>
@@ -1124,7 +1130,7 @@ export function Shortcuts() {
       <AntdInput
         ref={inputRef}
         onBlur={(event) => {
-          setValue(event.target.value)
+          setValue(event.target.value);
         }}
       />
 
@@ -1162,21 +1168,21 @@ export function Shortcuts() {
         title={() => <h3>Supported shortcuts</h3>}
       />
     </div>
-  )
+  );
 }
 
 export function TwelveHourClock() {
-  const inputRef = useRef<AntdInput>(null)
-  const defaultValue = '2 5,7,18 * * SUN'
-  const [value, setValue] = useState(defaultValue)
+  const inputRef = useRef<AntdInput>(null);
+  const defaultValue = '2 5,7,18 * * SUN';
+  const [value, setValue] = useState(defaultValue);
   const customSetValue = useCallback(
     (newValue: string) => {
-      setValue(newValue)
-      inputRef.current?.setValue(newValue)
+      setValue(newValue);
+      inputRef.current?.setValue(newValue);
     },
     [inputRef]
-  )
-  const [error, onError] = useState<CronError>()
+  );
+  const [error, onError] = useState<CronError>();
 
   return (
     <div>
@@ -1188,7 +1194,7 @@ export function TwelveHourClock() {
       <AntdInput
         ref={inputRef}
         onBlur={(event) => {
-          setValue(event.target.value)
+          setValue(event.target.value);
         }}
       />
 
@@ -1201,21 +1207,21 @@ export function TwelveHourClock() {
         clockFormat='12-hour-clock'
       />
     </div>
-  )
+  );
 }
 
 export function TwentyFourHourClock() {
-  const inputRef = useRef<AntdInput>(null)
-  const defaultValue = '2 5,7,18 * * SUN'
-  const [value, setValue] = useState(defaultValue)
+  const inputRef = useRef<AntdInput>(null);
+  const defaultValue = '2 5,7,18 * * SUN';
+  const [value, setValue] = useState(defaultValue);
   const customSetValue = useCallback(
     (newValue: string) => {
-      setValue(newValue)
-      inputRef.current?.setValue(newValue)
+      setValue(newValue);
+      inputRef.current?.setValue(newValue);
     },
     [inputRef]
-  )
-  const [error, onError] = useState<CronError>()
+  );
+  const [error, onError] = useState<CronError>();
 
   return (
     <div>
@@ -1227,7 +1233,7 @@ export function TwentyFourHourClock() {
       <AntdInput
         ref={inputRef}
         onBlur={(event) => {
-          setValue(event.target.value)
+          setValue(event.target.value);
         }}
       />
 
@@ -1248,21 +1254,21 @@ export function TwentyFourHourClock() {
         </span>
       </div>
     </div>
-  )
+  );
 }
 
 export function FrenchLocale() {
-  const inputRef = useRef<AntdInput>(null)
-  const defaultValue = '* * 1-2 2,8 1,3,6'
-  const [value, setValue] = useState(defaultValue)
+  const inputRef = useRef<AntdInput>(null);
+  const defaultValue = '* * 1-2 2,8 1,3,6';
+  const [value, setValue] = useState(defaultValue);
   const customSetValue = useCallback(
     (newValue: string) => {
-      setValue(newValue)
-      inputRef.current?.setValue(newValue)
+      setValue(newValue);
+      inputRef.current?.setValue(newValue);
     },
     [inputRef]
-  )
-  const [error, onError] = useState<CronError>()
+  );
+  const [error, onError] = useState<CronError>();
 
   return (
     <div>
@@ -1274,7 +1280,7 @@ export function FrenchLocale() {
       <AntdInput
         ref={inputRef}
         onBlur={(event) => {
-          setValue(event.target.value)
+          setValue(event.target.value);
         }}
       />
 
@@ -1303,12 +1309,12 @@ export function FrenchLocale() {
         </span>
       </div>
     </div>
-  )
+  );
 }
 
 export function CustomENLocale() {
-  const defaultValue = '30 14 22 * *'
-  const [value, setValue] = useState(defaultValue)
+  const defaultValue = '30 14 22 * *';
+  const [value, setValue] = useState(defaultValue);
 
   return (
     <div>
@@ -1325,12 +1331,12 @@ export function CustomENLocale() {
         </span>
       </div>
     </div>
-  )
+  );
 }
 
 export function NoPrefixAndSuffix() {
-  const defaultValue = '30 14 22 * *'
-  const [value, setValue] = useState(defaultValue)
+  const defaultValue = '30 14 22 * *';
+  const [value, setValue] = useState(defaultValue);
 
   return (
     <div>
@@ -1351,21 +1357,21 @@ export function NoPrefixAndSuffix() {
         </span>
       </div>
     </div>
-  )
+  );
 }
 
 export function CustomStyle() {
-  const inputRef = useRef<AntdInput>(null)
-  const defaultValue = '30 14 22 * *'
-  const [value, setValue] = useState(defaultValue)
+  const inputRef = useRef<AntdInput>(null);
+  const defaultValue = '30 14 22 * *';
+  const [value, setValue] = useState(defaultValue);
   const customSetValue = useCallback(
     (newValue: string) => {
-      setValue(newValue)
-      inputRef.current?.setValue(newValue)
+      setValue(newValue);
+      inputRef.current?.setValue(newValue);
     },
     [inputRef]
-  )
-  const [error, onError] = useState<CronError>()
+  );
+  const [error, onError] = useState<CronError>();
 
   return (
     <div>
@@ -1376,7 +1382,7 @@ export function CustomStyle() {
       <AntdInput
         ref={inputRef}
         onBlur={(event) => {
-          setValue(event.target.value)
+          setValue(event.target.value);
         }}
       />
 
@@ -1440,5 +1446,5 @@ export function CustomStyle() {
         </span>
       </div>
     </div>
-  )
+  );
 }

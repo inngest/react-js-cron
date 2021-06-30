@@ -1,10 +1,10 @@
-import React, { useMemo } from 'react'
+import React, { useMemo } from 'react';
 
-import { WeekDaysProps } from '../types'
-import CustomSelect from '../components/CustomSelect'
-import { DEFAULT_LOCALE_EN } from '../locale'
-import { classNames } from '../utils'
-import { UNITS } from '../constants'
+import { WeekDaysProps } from '../types';
+import CustomSelect from '../components/CustomSelect';
+import { DEFAULT_LOCALE_EN } from '../locale';
+import { classNames } from '../utils';
+import { UNITS } from '../constants';
 
 export default function WeekDays(props: WeekDaysProps) {
   const {
@@ -17,9 +17,9 @@ export default function WeekDays(props: WeekDaysProps) {
     disabled,
     readOnly,
     period,
-  } = props
-  const optionsList = locale.weekDays || DEFAULT_LOCALE_EN.weekDays
-  const noMonthDays = period === 'week' || !monthDays || monthDays.length === 0
+  } = props;
+  const optionsList = locale.weekDays || DEFAULT_LOCALE_EN.weekDays;
+  const noMonthDays = period === 'week' || !monthDays || monthDays.length === 0;
 
   const internalClassName = useMemo(
     () =>
@@ -31,31 +31,31 @@ export default function WeekDays(props: WeekDaysProps) {
         [`${className}-week-days`]: !!className,
       }),
     [className, noMonthDays]
-  )
+  );
 
-  const localeJSON = JSON.stringify(locale)
+  const localeJSON = JSON.stringify(locale);
   const placeholder = useMemo(
     () => {
       if (noMonthDays) {
-        return locale.emptyWeekDays || DEFAULT_LOCALE_EN.emptyWeekDays
+        return locale.emptyWeekDays || DEFAULT_LOCALE_EN.emptyWeekDays;
       }
 
-      return locale.emptyWeekDaysShort || DEFAULT_LOCALE_EN.emptyWeekDaysShort
+      return locale.emptyWeekDaysShort || DEFAULT_LOCALE_EN.emptyWeekDaysShort;
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [noMonthDays, localeJSON]
-  )
+  );
 
   const displayWeekDays =
     period === 'week' ||
     !readOnly ||
     (value && value.length > 0) ||
-    ((!value || value.length === 0) && (!monthDays || monthDays.length === 0))
+    ((!value || value.length === 0) && (!monthDays || monthDays.length === 0));
 
   const monthDaysIsDisplayed =
     !readOnly ||
     (monthDays && monthDays.length > 0) ||
-    ((!monthDays || monthDays.length === 0) && (!value || value.length === 0))
+    ((!monthDays || monthDays.length === 0) && (!value || value.length === 0));
 
   return displayWeekDays ? (
     <div className={internalClassName}>
@@ -95,5 +95,5 @@ export default function WeekDays(props: WeekDaysProps) {
         period={period}
       />
     </div>
-  ) : null
+  ) : null;
 }

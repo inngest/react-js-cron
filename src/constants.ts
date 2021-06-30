@@ -1,4 +1,4 @@
-import { ShortcutsValues, Unit } from './types'
+import { ShortcutsValues, Unit } from './types';
 
 export const SUPPORTED_SHORTCUTS: ShortcutsValues[] = [
   {
@@ -29,7 +29,7 @@ export const SUPPORTED_SHORTCUTS: ShortcutsValues[] = [
     name: '@hourly',
     value: '0 * * * *',
   },
-]
+];
 export const UNITS: Unit[] = [
   {
     type: 'minutes',
@@ -82,4 +82,4 @@ export const UNITS: Unit[] = [
     // alt values used for labels are in ./locale.ts file
     alt: ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'],
   },
-]
+];
